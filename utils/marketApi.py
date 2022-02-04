@@ -1,28 +1,33 @@
+from typing import Tuple
+from typing import Union
+
+import pandas as pd
 from binance.spot import Spot as Client
+
+from model.book_tickers import Book_ticker
 from model.exchange_info_item import Exchange_info_item
 from model.historical_trades import Historical_trades_24h
 from model.TradeList import Trade_list
-from model.book_tickers import Book_ticker
-from typing import Union, Tuple
-import pandas as pd
 
 
-def exchange_info_with_specific_quoteAccess(client: Client ,quoteAsset : str) -> Union[Tuple[str, pd.DataFrame], None]:
+def exchange_info_with_specific_quoteAccess(
+    client: Client, quoteAsset: str
+) -> Union[Tuple[str, pd.DataFrame], None]:
     try:
         exchange_items = client.exchange_info()["symbols"]
-        
+
         data = []
         for item in exchange_items:
             m = Exchange_info_item.parse_obj(item)
             data.append(m)
-            
+
         exchange_info_df = pd.DataFrame([s.__dict__ for s in data])
         # filter symbol with quote asset BTC
         condition = exchange_info_df["quoteAsset"] == quoteAsset
         return quoteAsset, exchange_info_df[condition]
-    except:
+    except Exception:
         return None
-    
+
 
 def historical_trades_in_24hrs(client: Client) -> Union[pd.DataFrame, None]:
     try:
@@ -32,10 +37,12 @@ def historical_trades_in_24hrs(client: Client) -> Union[pd.DataFrame, None]:
             m = Historical_trades_24h.parse_obj(trade)
             data.append(m)
         return pd.DataFrame([s.__dict__ for s in data])
-    except:
+    except Exception:
         return None
 
-def symbols_trade_list(client: Client, symbols: list) -> Union[pd.DataFrame, None]:
+
+def symbols_trade_list(client: Client,
+                       symbols: list) -> Union[pd.DataFrame, None]:
     try:
         data = []
         for symbol in symbols:
@@ -46,10 +53,10 @@ def symbols_trade_list(client: Client, symbols: list) -> Union[pd.DataFrame, Non
                 data.append(m)
         df = pd.DataFrame([s.__dict__ for s in data])
         return df
-    except:
+    except Exception:
         return None
-    
-    
+
+
 def order_book_ticker(client: Client) -> Union[pd.DataFrame, None]:
     try:
         order_book_ticker = client.book_ticker()
@@ -59,7 +66,5 @@ def order_book_ticker(client: Client) -> Union[pd.DataFrame, None]:
             data.append(m)
         df = pd.DataFrame([s.__dict__ for s in data])
         return df
-    except:
+    except Exception:
         return None
-    
-        

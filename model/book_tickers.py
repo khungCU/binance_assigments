@@ -1,9 +1,10 @@
 from pydantic import BaseModel
 
-#-------------------------------------------------
+
+# -------------------------------------------------
 # Book ticker
-#-------------------------------------------------
-class Book_ticker(BaseModel): 
+# -------------------------------------------------
+class Book_ticker(BaseModel):
     symbol: str
     bidPrice: float
     bidQty: float

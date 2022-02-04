@@ -1,7 +1,3 @@
-volume_msg = {
-    "msg": "volume"
-}
+volume_msg = {"msg": "volume"}
 
-count_msg = {
-    "msg" : "number of trades"
-}
+count_msg = {"msg": "number of trades"}

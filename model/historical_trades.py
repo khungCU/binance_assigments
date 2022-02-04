@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 
 
-#-------------------------------------------------
+# -------------------------------------------------
 #  Historical trades in 24h
-#------------------------------------------------
-class Historical_trades_24h(BaseModel): 
+# ------------------------------------------------
+class Historical_trades_24h(BaseModel):
     symbol: str
     priceChange: float
     priceChangePercent: float
@@ -23,10 +23,11 @@ class Historical_trades_24h(BaseModel):
     firstId: int
     lastId: int
     count: int
-    
-#-------------------------------------------------
+
+
+# -------------------------------------------------
 # old trade lookup
-#------------------------------------------------
+# ------------------------------------------------
 class Historical_trades(BaseModel):
     symbol: str
     id: int
