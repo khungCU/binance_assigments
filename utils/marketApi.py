@@ -9,6 +9,8 @@ from model.exchange_info_item import Exchange_info_item
 from model.historical_trades import Historical_trades_24h
 from model.TradeList import Trade_list
 
+pd.options.display.float_format = '${:,.7f}'.format
+
 
 def exchange_info_with_specific_quoteAccess(
     client: Client, quoteAsset: str
